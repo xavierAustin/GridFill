@@ -1,3 +1,8 @@
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: black;
+}
+.container {
+    display: grid;
+    justify-content: center;
 }

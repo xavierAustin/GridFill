@@ -37,13 +37,25 @@ s = function(p){
             p.drawingContext.shadowOffsetY = 0; 
         }
         p.textFont(p.font);
-        p.Screens = {Title: new Title(p)};
-        p.currentScreen = "Title";
+        p.Screens = {Title: new Title(p), Settings: new Settings(p), ModeSelect: new ModeSelect(p), Shop: new Shop(p)};
+        //I didn't really know what to call this
+        //use .push to change the screen and then .pop to go back to a previous screen
+        //popping more than ten times will go back to the title but who cares
+        p.prvNxtScrns = ["Title"];
         p.mouseStatus = {click: false, held: false, release: false};
+        p.volume = {mas: 1, bgm: 1, sfx: 1};
     }
     //technically a misnomber since it also updates but who cares
     p.draw = function(){
-        p.Screens[p.currentScreen].draw();
+        if (p.Screens.length > 10)
+            p.prvNxtScrns.shift();
+        if (p.Screens.length == 0)
+            p.prvNxtScrns = ["Title"];
+        let temp = p.Screens[p.prvNxtScrns.at(-1)];
+        if (temp == undefined)
+            throw new Error("Selected screen \""+p.prvNxtScrns.at(-1)+"\" does not exist.")
+        else
+            temp.draw();
         p.mouseStatus.click = false;
         p.mouseStatus.release = false;
     }

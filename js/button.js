@@ -48,7 +48,7 @@ class ButtonSkeleton{
             this.p.rect(this.x,this.y,this.w,this.h,10);
             this.p.fill(hexToRgb((theme[theme.current].light<<8) + 0x18,true));
             for (let i = 0; i < 17; i++)
-                this.p.rect(this.x+i,this.y+i+8,this.w-i*2,this.h-i-8,10);
+                this.p.rect(this.x+i,this.y+i+8,this.w-i*2,this.h-i-8,20,20,10);
         }
         this.p.pop();
         //rendered text on button face
