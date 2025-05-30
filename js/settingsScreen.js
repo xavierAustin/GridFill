@@ -2,7 +2,7 @@ class Settings{
     constructor(p){
         this.p = p;
         this.buttons = [
-            new ButtonSkeleton(p,24,64,70,70,{onRelease: ()=>{this.p.prvNxtScrns.pop()}},"<"),
+            new ButtonSkeleton(p,24,64,70,70,{onRelease: ()=>{this.p.prvNxtScrns.pop()}}),
             new ButtonSkeleton(p,24 ,550,83,96,{onHold: ()=>{this.p.volume.mas = Math.min(this.p.volume.mas + 0.02, 1)}},"+"),
             new ButtonSkeleton(p,24 ,656,83,96,{onHold: ()=>{this.p.volume.mas = Math.max(this.p.volume.mas - 0.02, 0)}},"\u2012"),
             new ButtonSkeleton(p,155,550,83,96,{onHold: ()=>{this.p.volume.bgm = Math.min(this.p.volume.bgm + 0.02, 1)}},"+"),
@@ -18,6 +18,8 @@ class Settings{
         //draw buttons
         for (let i = 0; i < this.buttons.length; i++)
             this.buttons[i].draw();
+        //icon for return button
+        this.p.image(this.p.returnIcon,24,64,70,70);
         //setup to draw text
         this.p.push();
         this.p.fill(hexToRgb("FFFFFF"));

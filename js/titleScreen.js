@@ -15,7 +15,7 @@ class Title{
         for (let i = 0; i < this.buttons.length; i++)
             this.buttons[i].draw();
         //icon for options button
-        this.p.image(this.p.settingsIcon,250,635,56,56);
+        this.p.image(this.p.settingsIcon,242,628,70,70);
         //draw title
         this.p.push();
         this.p.fill(hexToRgb("FFFFFF"));

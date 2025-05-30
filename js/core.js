@@ -17,6 +17,7 @@ s = function(p){
     p.preload = function(){
         p.font = p.loadFont('/assets/Jost-ExtraBold.ttf');
         p.settingsIcon = p.loadImage('/assets/uil_setting.png');
+        p.returnIcon = p.loadImage('/assets/uil_return.png');
     }
     p.setup = function(){
         p.createCanvas(393,852).parent("canvasContainer");
