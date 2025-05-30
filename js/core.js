@@ -23,9 +23,12 @@ s = function(p){
         //remove some caret browsing features (if we use space as an input it wont forcibly shoot the user to the bottom of the page)
         window.addEventListener("keydown", function(e) { if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Tab"].indexOf(e.code) > -1) {e.preventDefault();}}, false);
         p.dropShadow = (blur, y, color = p.color(0,0,0,64)) =>{
+            if (Array.isArray(color)){
+                color = p.color(color);
+            }
             p.drawingContext.shadowColor = color;
             p.drawingContext.shadowBlur = blur;
-            //multiplication to match figma; idk why it does this but matching params should be easier at least
+            //multiplication to match figma; idk why figma does this but matching params should be easier at least
             p.drawingContext.shadowOffsetY = y * 2; 
         }
         p.clearDropShadow = () =>{
@@ -44,7 +47,7 @@ s = function(p){
         p.mouseStatus.click = false;
         p.mouseStatus.release = false;
     }
-    //theres a function for holding the mouse buttons but it has a stupid name and isnt necessary
+    //theres a function for holding down the mouse buttons but it has a stupid name and isnt necessary
     p.mousePressed = function(){
         p.mouseStatus = {click: true, held: true, release: false};
     }
