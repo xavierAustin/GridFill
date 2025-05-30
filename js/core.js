@@ -36,9 +36,20 @@ s = function(p){
         p.textFont(p.font);
         p.Screens = {Title: new Title(p)};
         p.currentScreen = "Title";
+        p.mouseStatus = {click: false, held: false, release: false};
     }
+    //technically a misnomber since it also updates but who cares
     p.draw = function(){
         p.Screens[p.currentScreen].draw();
+        p.mouseStatus.click = false;
+        p.mouseStatus.release = false;
+    }
+    //theres a function for holding the mouse buttons but it has a stupid name and isnt necessary
+    p.mousePressed = function(){
+        p.mouseStatus = {click: true, held: true, release: false};
+    }
+    p.mouseReleased = function(){
+        p.mouseStatus = {click: false, held: false, release: true};
     }
 }
 
