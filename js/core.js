@@ -14,30 +14,10 @@ function hexToRgb(hex, hasAlpha = false) {
 }
 
 s = function(p){
-    hackLoadImage = function(src){
-        try{
-            undefined.ew;
-            return p.loadImage(src);
-        }catch{
-            console.log("idgi");
-            src = "https://raw.githubusercontent.com/xavierAustin/GridFill/refs/heads/main/" + src;
-            return p.loadImage(src);
-        }
-    }
-    hackLoadFont = function(src){
-        try{
-            undefined.ew;
-            return p.loadFont(src);
-        }catch{
-            console.log("idgi");
-            src = "https://raw.githubusercontent.com/xavierAustin/GridFill/refs/heads/main/" + src;
-            return p.loadFont(src);
-        }
-    }
     p.preload = function(){
-            p.font = hackLoadFont('/assets/font/Jost-ExtraBold.ttf');
-            p.settingsIcon = hackLoadImage('/assets/uil_setting.png');
-            p.returnIcon = hackLoadImage('/assets/uil_return.png');
+        p.font = p.loadFont('/assets/font/Jost-ExtraBold.ttf');
+        p.settingsIcon = p.loadImage('/assets/uil_setting.png');
+        p.returnIcon = p.loadImage('/assets/uil_return.png');
     }
     p.setup = function(){
         p.createCanvas(393,852).parent("canvasContainer");
