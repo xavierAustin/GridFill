@@ -15,7 +15,7 @@ function hexToRgb(hex, hasAlpha = false) {
 
 s = function(p){
     p.preload = function(){
-        p.font = p.loadFont('/assets/Jost-ExtraBold.ttf');
+        p.font = p.loadFont('/assets/font/Jost-ExtraBold.ttf');
         p.settingsIcon = p.loadImage('/assets/uil_setting.png');
         p.returnIcon = p.loadImage('/assets/uil_return.png');
     }
