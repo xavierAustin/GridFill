@@ -22,7 +22,7 @@ class Title{
         this.p.dropShadow(4, 6);
         this.p.textSize(72);
         this.p.textAlign(this.p.CENTER,this.p.CENTER);
-        this.p.text("GridFill", 66, 63, 259, 104);
+        this.p.text("GridFill", 0, 63, 393, 104);
         this.p.pop();
         //draw logo
         this.p.fill(hexToRgb("FFFFFF"));

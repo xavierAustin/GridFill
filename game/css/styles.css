@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "JostExtraBold";
+  src: url("./../assets/font/Jost-ExtraBold.ttf") format('truetype');
+}
+
+body {
+    font-family: "JostExtraBold", Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #353535;
+    color: #ffffff;
+}
+.container {
+    display: grid;
+    justify-content: center;
+}
+a {
+    color: #76C6FF;
+}
+a:hover {
+    color: #ffffff;
+}
+a:visited {
+    color: #7FDF7C;
+}
