@@ -31,8 +31,8 @@ class Settings{
         this.p.text(Math.round(this.p.volume.bgm*100), 155, 756, 83, 41);
         this.p.text(Math.round(this.p.volume.sfx*100), 286, 756, 83, 41);
         //draw screen title
-        this.p.textSize(54);
-        this.p.text("Settings", 0, 143, 393, 83);
+        this.p.textSize(45);
+        this.p.text("Settings", 0, 64, 393, 70);
         //draw volume names
         this.p.textSize(24);
         this.p.dropShadow(4, 4);

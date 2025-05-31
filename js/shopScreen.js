@@ -17,6 +17,14 @@ class Shop{
         this.p.image(this.p.settingsIcon,299,64,70,70);
         //icon for return button
         this.p.image(this.p.returnIcon,24,64,70,70);
+        //draw screen title
+        this.p.push();
+        this.p.fill(hexToRgb("FFFFFF"));
+        this.p.dropShadow(4, 6);
+        this.p.textAlign(this.p.CENTER,this.p.CENTER);
+        this.p.textSize(45);
+        this.p.text("Shop", 0, 64, 393, 70);
+        this.p.pop();
         //todo: everything ;>_>
     }
 }
