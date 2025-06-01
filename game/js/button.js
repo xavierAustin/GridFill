@@ -1,6 +1,6 @@
 class ButtonSkeleton{
     //font size isn't actually zero by default see line 21
-    constructor(p, x, y, w, h, passedFuncs = {}, text = "", fontSize = 0){
+    constructor(p, x, y, w, h, passedFuncs = {}, text = "", textcolor = "FFFFFF", fontSize = 0){
         //handle half defined arguments
         //ie if only an onClick function is passed fill in the other functions with empty functions
         let funcs = {onClick: ()=>{},onHold: ()=>{},onRelease: ()=>{}};
@@ -20,6 +20,7 @@ class ButtonSkeleton{
         this.text = text;
         this.fontSize = fontSize? fontSize : h*0.6;
         this.state = "default";
+        this.color = textcolor;
     }
     draw(){
         //update
@@ -53,14 +54,14 @@ class ButtonSkeleton{
         this.p.pop();
         //rendered text on button face
         this.p.push();
-        this.p.fill(hexToRgb("FFFFFF"));
+        this.p.fill(hexToRgb(this.color));
         this.p.textSize(this.fontSize);
         this.p.textAlign(this.p.CENTER,this.p.CENTER);
         //I don't know why center vertical alignment doesn't actually align the font to the center
         this.p.text(this.text,this.x,this.y-this.fontSize*0.2,this.w,this.h);
         this.p.pop();
         if (this.state == "hover"){
-            this.p.fill(hexToRgb("FFFFFF55",true));
+            this.p.fill(hexToRgb(this.color+"55",true));
             this.p.rect(this.x,this.y,this.w,this.h,10);
         }
     }

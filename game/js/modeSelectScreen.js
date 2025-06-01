@@ -40,6 +40,14 @@ class ModeSelect{
         this.p.image(this.p.settingsIcon,299,64,70,70);
         //icon for return button
         this.p.image(this.p.returnIcon,24,64,70,70);
+        //icons for select buttons
+        this.p.image(this.p.carrotIcon,24,575.5,70,70);
+        this.p.image(this.p.carrotIcon,71,423,70,70);
+        this.p.push();
+        this.p.scale(-1,1);
+        this.p.image(this.p.carrotIcon,-369,575.5,70,70);
+        this.p.image(this.p.carrotIcon,-322,423,70,70);
+        this.p.pop();
         //draw evolution/static icons
         this.p.push();
         this.p.dropShadow(4, 6);

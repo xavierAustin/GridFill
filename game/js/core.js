@@ -64,7 +64,7 @@ s = function(p){
             p.drawingContext.shadowOffsetY = 0; 
         }
         p.textFont(p.font);
-        p.Screens = {Title: new Title(p), Settings: new Settings(p), ModeSelect: new ModeSelect(p), Shop: new Shop(p)};
+        p.Screens = {Title: new Title(p), Settings: new Settings(p), ModeSelect: new ModeSelect(p), Shop: new Shop(p), Game: new Game(p)};
         //I didn't really know what to call this
         //use .push to change the screen and then .pop to go back to a previous screen
         //popping more than ten times will go back to the title but who cares
@@ -74,9 +74,9 @@ s = function(p){
     }
     //technically a misnomber since it also updates but who cares
     p.draw = function(){
-        if (p.Screens.length > 10)
+        if (p.prvNxtScrns.length > 10)
             p.prvNxtScrns.shift();
-        if (p.Screens.length == 0)
+        if (p.prvNxtScrns.length == 0)
             p.prvNxtScrns = ["Title"];
         let temp = p.Screens[p.prvNxtScrns.at(-1)];
         if (temp == undefined)
