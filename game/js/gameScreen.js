@@ -7,7 +7,7 @@ class Game{
             //must be the last button in the array!
             new ButtonSkeleton(p,163,763,206,70,{onRelease: ()=>{
 
-            }}, "", theme[theme.current].blue, p.RIGHT, 27)
+            }}, "", "FFFFFF", theme[theme.current].blue, p.RIGHT, 27)
         ];
     }
     draw(){
@@ -30,10 +30,7 @@ class Game{
         this.p.square(24,155,345,10);
         this.p.rect(24,529,345,213,10);
         //icon for loadout button
-        this.p.push();
-        this.p.tint(hexToRgb(theme[theme.current].blue));
         this.p.image(loadout[modeout.l].img,168,763,70,70);
-        this.p.pop();
         //make the powerup button actually reflect the loadout
         this.buttons.at(-1).text = capitalizeFirst(modeout.l)+"\u2800";
     }

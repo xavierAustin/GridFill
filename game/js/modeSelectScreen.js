@@ -2,9 +2,15 @@ class ModeSelect{
     constructor(p){
         this.p = p;
         this.buttons = [
+            //must be the first button in the array!
+            new ButtonSkeleton(p,79,730,235,99,{
+                onRelease: ()=>{
+                    if(loadout[modeout.l].description == loadout[modeout.l].truedes)
+                        this.p.prvNxtScrns.push("Game");
+                }
+            },"Go!"),
             new ButtonSkeleton(p,24,64,70,70,{onRelease: ()=>{this.p.prvNxtScrns.pop()}}),
             new ButtonSkeleton(p,299,64,70,70,{onRelease: ()=>{this.p.prvNxtScrns.push("Settings")}}),
-            new ButtonSkeleton(p,79,730,235,99,{onRelease: ()=>{if(loadout[modeout.l].description == loadout[modeout.l].truedes){this.p.prvNxtScrns.push("Game")}}},"Go!"),
             new ButtonSkeleton(p,24,523,70,175,{onRelease: ()=>{
                 //switch loadout
                 let temp = Object.getOwnPropertyNames(loadout);
@@ -69,5 +75,7 @@ class ModeSelect{
         this.p.textSize(11);
         this.p.text(loadout[modeout.l].description,111,645,171,114);
         this.p.pop();
+        //change go button color if selected loadout is locked
+        this.buttons[0].backcolor = (loadout[modeout.l].description == loadout[modeout.l].truedes)? theme[theme.current].lightest : theme[theme.current].light;
     }
 }

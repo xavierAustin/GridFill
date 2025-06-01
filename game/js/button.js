@@ -1,6 +1,6 @@
 class ButtonSkeleton{
     //font size isn't actually zero by default see line 21
-    constructor(p, x, y, w, h, passedFuncs = {}, text = "", textcolor = "FFFFFF", align = null, fontSize = 0){
+    constructor(p, x, y, w, h, passedFuncs = {}, text = "", textcolor = "FFFFFF", backcolor = theme[theme.current].lightest, align = null, fontSize = 0){
         //handle half defined arguments
         //ie if only an onClick function is passed fill in the other functions with empty functions
         let funcs = {onClick: ()=>{},onHold: ()=>{},onRelease: ()=>{}};
@@ -20,7 +20,8 @@ class ButtonSkeleton{
         this.text = text;
         this.fontSize = fontSize? fontSize : h*0.6;
         this.state = "default";
-        this.color = textcolor;
+        this.textcolor = textcolor;
+        this.backcolor = backcolor;
         this.align = align ? align : this.p.CENTER;
     }
     draw(){
@@ -40,7 +41,7 @@ class ButtonSkeleton{
         //actual button
         this.p.push();
         if (this.state != "held"){
-            this.p.fill(hexToRgb(theme[theme.current].lightest));
+            this.p.fill(hexToRgb(this.backcolor));
             this.p.dropShadow(4, 6);
             this.p.rect(this.x,this.y,this.w,this.h,10);
         }else{
@@ -57,14 +58,14 @@ class ButtonSkeleton{
         this.p.pop();
         //rendered text on button face
         this.p.push();
-        this.p.fill(hexToRgb(this.color));
+        this.p.fill(hexToRgb(this.textcolor));
         this.p.textSize(this.fontSize);
         this.p.textAlign(this.align,this.p.CENTER);
         //I don't know why center vertical alignment doesn't actually align the font to the center
         this.p.text(this.text,this.x,this.y-this.fontSize*0.2,this.w,this.h);
         this.p.pop();
         if (this.state == "hover"){
-            let temp = hexToRgb(this.color)
+            let temp = hexToRgb(this.textcolor)
             temp[3] = 0x55;
             this.p.fill(temp,true);
             this.p.rect(this.x,this.y,this.w,this.h,10);

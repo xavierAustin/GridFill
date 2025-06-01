@@ -1,7 +1,7 @@
 let loadout = {
     scry: { //could also be called hint but hint sounds like easy mode and scry sounds cool
         description: "Tap to highlight two required pieces; recharges every 5 seconds.",
-        hasButton: 5,
+        hasButton: 1,
         img: null, //set in core.js preload
         trueimg: null,
         truedes: null //is just decription again
@@ -15,7 +15,7 @@ let loadout = {
     },
     roulette: {
         description: "Tap to reroll the current puzzle; recharges every 7 seconds.",
-        hasButton: 7,
+        hasButton: 1,
         img: null,
         trueimg: null,
         truedes: null
@@ -43,14 +43,14 @@ let loadout = {
     },
     slice: {
         description: "Tap to slice 2 pieces in half; recharges every 10 seconds (scales with grid size).",
-        hasButton: 10,
+        hasButton: 1,
         img: null,
         trueimg: null,
         truedes: null
     },
     fish: {
         description: "Tap for points; recharges at random; goes on cooldown if not pressed in time.",
-        hasButton: -1,
+        hasButton: 1,
         img: null,
         trueimg: null,
         truedes: null
