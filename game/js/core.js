@@ -86,6 +86,13 @@ s = function(p){
     p.mouseReleased = function(){
         p.mouseStatus = {click: false, held: false, release: true};
     }
+    //mobile device functionality
+    p.touchStarted = function(){
+        p.mouseStatus = {click: true, held: true, release: false};
+    }
+    p.touchEnded = function(){
+        p.mouseStatus = {click: false, held: false, release: true};
+    }
 }
 
 var myp5_1 = new p5(s, "container");
