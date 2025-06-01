@@ -12,12 +12,31 @@ function hexToRgb(hex, hasAlpha = false) {
 
     return [r,g,b,a];
 }
+function capitalizeFirst(str){
+    return str.toUpperCase()[0]+str.substr(1);
+}
 
 s = function(p){
     p.preload = function(){
         p.font = p.loadFont('./assets/font/Jost-ExtraBold.ttf');
         p.settingsIcon = p.loadImage('./assets/uil_setting.png');
         p.returnIcon = p.loadImage('./assets/uil_return.png');
+        p.arrowIcon = p.loadImage('./assets/uil_arrow.png');
+        p.carrotIcon = p.loadImage('./assets/uil_carrot.png');
+        loadout.burnout.trueimg = p.loadImage('./assets/loadout/uil_fire.png');
+        loadout.conjure.trueimg = p.loadImage('./assets/loadout/uil_box-plus.png');
+        loadout.fish.trueimg = p.loadImage('./assets/loadout/uil_fish.png');
+        loadout.focus.trueimg = p.loadImage('./assets/loadout/uil_box-block.png');
+        loadout.grind.trueimg = p.loadImage('./assets/loadout/uil_clock.png');
+        loadout.roulette.trueimg = p.loadImage('./assets/loadout/uil_refresh.png');
+        loadout.scry.trueimg = p.loadImage('./assets/loadout/uil_eye.png');
+        loadout.slice.trueimg = p.loadImage('./assets/loadout/uil_box-slash.png');
+        loadout.void.trueimg = p.loadImage('./assets/loadout/uil_box-clear.png');
+        let temp = Object.getOwnPropertyNames(loadout);
+        for (let i = 0; i < temp.length; i++){
+            //loadout[temp[i]].img = p.loadImage('./assets/loadout/uil_lock.png');
+            loadout[temp[i]].img = loadout[temp[i]].trueimg;
+        }
     }
     p.setup = function(){
         p.createCanvas(393,852).parent("canvasContainer");
