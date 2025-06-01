@@ -4,7 +4,7 @@ class ModeSelect{
         this.buttons = [
             new ButtonSkeleton(p,24,64,70,70,{onRelease: ()=>{this.p.prvNxtScrns.pop()}}),
             new ButtonSkeleton(p,299,64,70,70,{onRelease: ()=>{this.p.prvNxtScrns.push("Settings")}}),
-            new ButtonSkeleton(p,79,730,235,99,{onRelease: ()=>{this.p.prvNxtScrns.push("Game")}},"Go!"),
+            new ButtonSkeleton(p,79,730,235,99,{onRelease: ()=>{if(loadout[modeout.l].description == loadout[modeout.l].truedes){this.p.prvNxtScrns.push("Game")}}},"Go!"),
             new ButtonSkeleton(p,24,523,70,175,{onRelease: ()=>{
                 //switch loadout
                 let temp = Object.getOwnPropertyNames(loadout);
