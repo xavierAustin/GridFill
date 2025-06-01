@@ -21,8 +21,10 @@ a:hover {
 a:visited {
     color: #7FDF7C;
 }
-.prevent-select {
+:root {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
+  touch-action: pan-x pan-y;
+  height: 100%;
 }
