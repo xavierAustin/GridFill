@@ -22,9 +22,9 @@ a:visited {
     color: #7FDF7C;
 }
 :root {
-  -webkit-user-select: none; /* Safari */
+  -webkit-user-select: none; /* Safari (doesn't fucking work) */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-  touch-action: pan-x pan-y;
-  height: 100%;
+  touch-action: pan-x pan-y; /* also does nothing */
+  height: 100%; /* also probably does nothing */
 }

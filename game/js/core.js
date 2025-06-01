@@ -38,6 +38,8 @@ s = function(p){
             loadout[temp[i]].img = lock;
             loadout[temp[i]].truedes = loadout[temp[i]].description;
             loadout[temp[i]].description = "Locked.";
+            //debug
+            p.unlockLoadout(temp[i]);
         }
         p.unlockLoadout("scry");
     }

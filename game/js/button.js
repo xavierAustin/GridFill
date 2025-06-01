@@ -1,6 +1,6 @@
 class ButtonSkeleton{
     //font size isn't actually zero by default see line 21
-    constructor(p, x, y, w, h, passedFuncs = {}, text = "", textcolor = "FFFFFF", fontSize = 0){
+    constructor(p, x, y, w, h, passedFuncs = {}, text = "", textcolor = "FFFFFF", align = null, fontSize = 0){
         //handle half defined arguments
         //ie if only an onClick function is passed fill in the other functions with empty functions
         let funcs = {onClick: ()=>{},onHold: ()=>{},onRelease: ()=>{}};
@@ -21,6 +21,7 @@ class ButtonSkeleton{
         this.fontSize = fontSize? fontSize : h*0.6;
         this.state = "default";
         this.color = textcolor;
+        this.align = align ? align : this.p.CENTER;
     }
     draw(){
         //update
@@ -47,7 +48,9 @@ class ButtonSkeleton{
             this.p.rect(this.x,this.y,this.w,this.h,10);
             this.p.fill(hexToRgb("00000064",1));
             this.p.rect(this.x,this.y,this.w,this.h,10);
-            this.p.fill(hexToRgb((theme[theme.current].light<<8) + 0x18,true));
+            let temp = hexToRgb(theme[theme.current].light)
+            temp[3] = 0x18;
+            this.p.fill(temp);
             for (let i = 0; i < 17; i++)
                 this.p.rect(this.x+i,this.y+i+8,this.w-i*2,this.h-i-8,20,20,10);
         }
@@ -56,12 +59,14 @@ class ButtonSkeleton{
         this.p.push();
         this.p.fill(hexToRgb(this.color));
         this.p.textSize(this.fontSize);
-        this.p.textAlign(this.p.CENTER,this.p.CENTER);
+        this.p.textAlign(this.align,this.p.CENTER);
         //I don't know why center vertical alignment doesn't actually align the font to the center
         this.p.text(this.text,this.x,this.y-this.fontSize*0.2,this.w,this.h);
         this.p.pop();
         if (this.state == "hover"){
-            this.p.fill(hexToRgb(this.color+"55",true));
+            let temp = hexToRgb(this.color)
+            temp[3] = 0x55;
+            this.p.fill(temp,true);
             this.p.rect(this.x,this.y,this.w,this.h,10);
         }
     }

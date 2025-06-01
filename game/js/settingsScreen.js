@@ -5,7 +5,7 @@ class Settings{
             new ButtonSkeleton(p,24,64,70,70,{onRelease: ()=>{this.p.prvNxtScrns.pop()}}),
             new ButtonSkeleton(p,24,153,346,70,{onRelease: ()=>{}},"Explode"),
             new ButtonSkeleton(p,24,243,346,70,{onRelease: ()=>{this.p.prvNxtScrns.push("Title")}},"Quit To Menu",theme[theme.current].red),
-            new ButtonSkeleton(p,24,333,346,70,{onRelease: ()=>{this.p.prvNxtScrns.push("ConfirmUnlock")}},"Unlock All"),
+            new ButtonSkeleton(p,24,333,346,70,{onRelease: ()=>{this.p.prvNxtScrns.push("ConfirmUnlock")}},"Unlock All",theme[theme.current].orange),
             new ButtonSkeleton(p,24,423,346,70,{onRelease: ()=>{this.p.prvNxtScrns.push("ConfirmReset")}},"Reset Progress",theme[theme.current].red),
             new ButtonSkeleton(p,24 ,563,83,83,{onHold: ()=>{this.p.volume.mas = Math.min(this.p.volume.mas + 0.02, 1)}},"+"),
             new ButtonSkeleton(p,24 ,656,83,83,{onHold: ()=>{this.p.volume.mas = Math.max(this.p.volume.mas - 0.02, 0)}},"\u2012"),
