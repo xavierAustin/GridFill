@@ -33,10 +33,17 @@ s = function(p){
         loadout.slice.trueimg = p.loadImage('./assets/loadout/uil_box-slash.png');
         loadout.void.trueimg = p.loadImage('./assets/loadout/uil_box-clear.png');
         let temp = Object.getOwnPropertyNames(loadout);
+        let lock = p.loadImage('./assets/uil_lock.png');
         for (let i = 0; i < temp.length; i++){
-            //loadout[temp[i]].img = p.loadImage('./assets/loadout/uil_lock.png');
-            loadout[temp[i]].img = loadout[temp[i]].trueimg;
+            loadout[temp[i]].img = lock;
+            loadout[temp[i]].truedes = loadout[temp[i]].description;
+            loadout[temp[i]].description = "Locked.";
         }
+        p.unlockLoadout("scry");
+    }
+    p.unlockLoadout = function(property){
+        loadout[property].img = loadout[property].trueimg;
+        loadout[property].description = loadout[property].truedes;
     }
     p.setup = function(){
         p.createCanvas(393,852).parent("canvasContainer");

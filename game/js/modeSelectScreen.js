@@ -53,8 +53,13 @@ class ModeSelect{
         this.p.dropShadow(4, 5);
         this.p.textSize(30);
         this.p.textAlign(this.p.CENTER,this.p.TOP);
-        this.p.text(capitalizeFirst(modeout.m),24,299,346,114);
-        this.p.text(capitalizeFirst(modeout.l),24,608,346,114);
+        this.p.text(capitalizeFirst(modeout.m),24,309,346,114);
+        this.p.text(capitalizeFirst(modeout.l),24,606,346,114);
+        this.p.textSize(16);
+        this.p.textWrap(this.p.WORD);
+        this.p.text(mode[modeout.m],30,349,333,114);
+        this.p.textSize(11);
+        this.p.text(loadout[modeout.l].description,111,645,171,114);
         this.p.pop();
     }
 }
