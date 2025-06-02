@@ -39,7 +39,7 @@ s = function(p){
             loadout[temp[i]].truedes = loadout[temp[i]].description;
             loadout[temp[i]].description = "Locked.";
             //debug
-            //p.unlockLoadout(temp[i]);
+            p.unlockLoadout(temp[i]);
         }
         p.unlockLoadout("scry");
     }
@@ -66,6 +66,7 @@ s = function(p){
             p.drawingContext.shadowOffsetY = 0; 
         }
         p.textFont(p.font);
+        p.game = new Game();
         p.Screens = {Title: new Title(p), Settings: new Settings(p), ModeSelect: new ModeSelect(p), Shop: new Shop(p), Game: new GameScreen(p)};
         //I didn't really know what to call this
         //use .push to change the screen and then .pop to go back to a previous screen

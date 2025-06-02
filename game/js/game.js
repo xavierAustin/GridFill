@@ -1,5 +1,6 @@
 const STARTING_GRIDSIZE = 4;
 const EVOLUTION_SOLVE_NUM = 2;
+const ABSOLUTE_MAX_SIZE = 11;
 
 function shuffle(array) {
     for (let i = array.length; i > 0; i--) {
@@ -14,7 +15,9 @@ class Game{
     constructor(){
         this.mode = null;
         this.puzzlesSolved = 0;
+        this.scorePerPuzzle = 100;
         this.grid = [];
+        this.pieceTable = [];
         for (let x = 0; x < STARTING_GRIDSIZE; x++){
             let temp = [];
             for (let y = 0; y < STARTING_GRIDSIZE; y++)
@@ -23,10 +26,20 @@ class Game{
         }
         this.MAXITER = this.grid.length * this.grid.length;
     }
+    getGrid(){
+        return this.grid;
+    }
+    clearGrid(){
+        for (let x = 0; x < this.grid.length; x++)
+            for (let y = 0; y < this.grid.length; y++)
+                this.grid[x][y] = 0;
+    }
     setMode(mode){
         this.mode = mode;
     }
     gridSizeUp(){
+        if (this.grid.length >= ABSOLUTE_MAX_SIZE)
+            return;
         this.grid = [];
         for (let x = 0; x <= this.grid.length; x++){
             let temp = [];
@@ -35,18 +48,40 @@ class Game{
             this.grid.push(temp);
         }
         this.MAXITER = this.grid.length * this.grid.length;
+        //increases scoring too
+        this.scorePerPuzzle *= 2 * this.scorePerPuzzle / 100;
+    }
+    placePiece(pieceIndex,x,y){
+        //check if piece can be placed at given x and y
+        possible = true;
+        for (let j = 0; j < pieces[pieceIndex].length; j++)
+            possible &= (this.grid[pieces[pieceIndex][j].x + x] && this.grid[pieces[pieceIndex][j].x + x][pieces[pieceIndex][j].y + y])
+        if (!possible)
+            return false;
+        //place it if possible
+        for (let j = 0; j < pieces[pieceIndex].length; j++)
+            this.grid[pieces[pieceIndex][j].x + x][pieces[pieceIndex][j].y + y] = pieceIndex;
+        return true;
     }
     generatePuzzle(){
-        let numOfPieces = Math.floor((Math.random() * 0.6 + 1.2) * this.grid.length);
+        this.clearGrid();
+        let numOfPieces = Math.floor((Math.random() * 0.6 + 1.3) * this.grid.length);
         let imaginaryGrid = shuffle(this.getEmptyCells());
         let pieces = [];
+        let skipped = 0;
         for (let i = 0; i < numOfPieces; i ++){
             pieces.push([imaginaryGrid.pop()]);
         }
         //add one cell to each randomly grabbed cell every iteration
-        for (let totalIter = 0; totalIter < this.MAXITER && imaginaryGrid.length > 0; totalIter++){
+        for (let totalIter = 0; (totalIter < this.MAXITER + skipped) && (imaginaryGrid.length > 0); totalIter++){
+            shuffle(pieces)
             for (let i = 0; i < pieces.length; i++){
                 for (let j = 0; j < imaginaryGrid.length; j++){
+                    //adds some varation to the piece size for more interesting puzzles
+                    if (skipped < 10 && Math.random() < 0.5){
+                        skipped ++;
+                        continue;
+                    }
                     //check conectivity
                     let canConnect = false;
                     for (let cellInd = 0; cellInd < pieces[i].length; cellInd++){
@@ -76,16 +111,39 @@ class Game{
         //debug
         for (let i = 0; i < pieces.length; i++)
             for (let j = 0; j < pieces[i].length; j++)
-                this.grid[pieces[i][j].x][pieces[i][j].y] = (i+10).toString(36);
+                this.grid[pieces[i][j].x][pieces[i][j].y] = i;
         console.log(this.grid);
+        //make trick piece
+        let temp = pieces.at(-1).slice();
+        temp.pop(); //theoretically makes a valid shape always but could do with some testing
+        pieces.push(temp);
+        shuffle(pieces);
+        //see method below
+        for (let i = 0; i < pieces.length; i++){
+            this.normalizePiece(pieces[i])
+        }
         return pieces;
+    }
+    normalizePiece(piece){
+        //translate pieces such that they are mostly dissociated from the solution
+        let min = {x: Infinity, y: Infinity};
+        for (let i = 0; i < piece.length; i++){
+            if (piece[i].x < min.x)
+                min.x = piece[i].x;
+            if (piece[i].y < min.y)
+                min.y = piece[i].y;
+        }
+        for (let i = 0; i < piece.length; i++){
+            piece[i].x -= min.x;
+            piece[i].y -= min.y;
+        }
     }
     getEmptyCells(){
         let out = [];
         for (let x = 0; x < this.grid.length; x++)
             for (let y = 0; y < this.grid.length; y++)
                 if (this.grid[x][y] == 0)
-                    out.push({x:x,y:y,0:x,1:y})
+                    out.push({x:x,y:y})
         return out;
     }
 }

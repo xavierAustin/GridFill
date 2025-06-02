@@ -3,7 +3,10 @@ class ModeSelect{
         this.p = p;
         this.buttons = [
             //must be the first button in the array!
-            new ButtonSkeleton(p,79,730,235,99,{onRelease: ()=>{this.p.prvNxtScrns.push("Game");}},"Go!"),
+            new ButtonSkeleton(p,79,730,235,99,{onRelease: ()=>{
+                this.p.game.generatePuzzle();
+                this.p.prvNxtScrns.push("Game");
+            }},"Go!"),
             new ButtonSkeleton(p,24,64,70,70,{onRelease: ()=>{this.p.prvNxtScrns.pop()}}),
             new ButtonSkeleton(p,299,64,70,70,{onRelease: ()=>{this.p.prvNxtScrns.push("Settings")}}),
             new ButtonSkeleton(p,24,523,70,175,{onRelease: ()=>{
