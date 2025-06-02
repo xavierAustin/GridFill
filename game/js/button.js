@@ -24,7 +24,17 @@ class ButtonSkeleton{
         this.backcolor = backcolor;
         this.align = align ? align : this.p.CENTER;
     }
+    activate(){
+        if (this.state == "inactive")
+            this.state = "default"
+    }
+    deactivate(){
+        if (this.state != "inactive")
+            this.state = "inactive"
+    }
     draw(){
+        if (this.state == "inactive")
+            return;
         //update
         if (this.p.mouseX < this.x || this.p.mouseX > this.x + this.w || this.p.mouseY < this.y || this.p.mouseY > this.y + this.h)
             this.state = "default";
