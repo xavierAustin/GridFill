@@ -1,4 +1,4 @@
-class Game{
+class GameScreen{
     constructor(p){
         this.p = p;
         this.buttons = [
@@ -9,6 +9,8 @@ class Game{
 
             }}, "", "FFFFFF", theme[theme.current].blue, p.RIGHT, 27)
         ];
+        this.game = new Game();
+        this.game.generatePuzzle();
     }
     draw(){
         this.p.noStroke();

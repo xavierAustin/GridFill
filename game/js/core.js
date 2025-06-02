@@ -66,7 +66,7 @@ s = function(p){
             p.drawingContext.shadowOffsetY = 0; 
         }
         p.textFont(p.font);
-        p.Screens = {Title: new Title(p), Settings: new Settings(p), ModeSelect: new ModeSelect(p), Shop: new Shop(p), Game: new Game(p)};
+        p.Screens = {Title: new Title(p), Settings: new Settings(p), ModeSelect: new ModeSelect(p), Shop: new Shop(p), Game: new GameScreen(p)};
         //I didn't really know what to call this
         //use .push to change the screen and then .pop to go back to a previous screen
         //popping more than ten times will go back to the title but who cares
