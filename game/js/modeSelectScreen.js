@@ -4,7 +4,9 @@ class ModeSelect{
         this.buttons = [
             //must be the first button in the array!
             new ButtonSkeleton(p,79,730,235,99,{onRelease: ()=>{
-                this.p.game.generatePuzzle();
+                this.p.game.setMode(modeout.m);
+                this.p.cooldown = -1;
+                this.p.timer = 300;
                 this.p.prvNxtScrns.push("Game");
             }},"Go!"),
             new ButtonSkeleton(p,24,64,70,70,{onRelease: ()=>{this.p.prvNxtScrns.pop()}}),

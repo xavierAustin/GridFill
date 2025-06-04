@@ -74,6 +74,9 @@ s = function(p){
         p.prvNxtScrns = ["Title"];
         p.mouseStatus = {click: false, held: false, release: false};
         p.volume = {mas: 1, bgm: 1, sfx: 1};
+        p.score = {now: 0, total: 0, high: 0};
+        p.cooldown = 0;
+        p.timer = 300;
     }
     //technically a misnomber since it also updates but who cares
     p.draw = function(){

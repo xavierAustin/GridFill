@@ -1,18 +1,22 @@
+const SIXTIETH = 1/60;
+
 class GameScreen{
     constructor(p){
         this.p = p;
-        this.cooldown = -1;
         this.buttons = [
             //new ButtonSkeleton(p,24,64,70,70,{onRelease: ()=>{this.p.prvNxtScrns.pop()}}),
             new ButtonSkeleton(p,299,64,70,70,{onRelease: ()=>{this.p.prvNxtScrns.push("Settings")}}),
             //must be the last button in the array!
             new ButtonSkeleton(p,163,763,206,70,{onRelease: ()=>{
-                if (this.cooldown > 0)
+                if (this.p.cooldown > 0)
                     return;
                 switch(modeout.l){
                     case ("roulette"):
                         this.p.game.generatePuzzle();
-                        this.cooldown = 420;
+                        this.p.cooldown = 420;
+                    break;
+                    case ("fish"):
+                        this.p.cooldown = Math.random()*540+60;
                     break;
                 }
             }}, "", "FFFFFF", theme[theme.current].blue, p.RIGHT, 27)
@@ -33,6 +37,15 @@ class GameScreen{
         this.p.dropShadow(4, 6);
         this.p.fill(hexToRgb(theme[theme.current].lightest));
         this.p.rect(24,64,143,69,10);
+        //draw timer text
+        this.p.textAlign(this.p.CENTER,this.p.CENTER);
+        this.p.textSize(40);
+        this.p.fill(hexToRgb("FFFFFF"));
+        this.p.text(Math.floor(this.p.timer/60)+":"+(""+Math.floor(this.p.timer%60)).padStart(2,"0"),24,54,143,69);
+        //draw score text
+        this.p.textAlign(this.p.LEFT,this.p.CENTER);
+        this.p.textSize(20);
+        this.p.text("Score:\n00000000",24,753,190,70);
         this.p.pop();
         //draw container for puzzle and piece tray
         this.p.fill(hexToRgb(theme[theme.current].dark));
@@ -42,7 +55,7 @@ class GameScreen{
         this.p.image(loadout[modeout.l].img,168,763,70,70);
         //make the powerup button actually reflect the loadout
         this.buttons.at(-1).text = capitalizeFirst(modeout.l)+"\u2800";
-        this.buttons.at(-1).backcolor = (this.cooldown < 0 && loadout[modeout.l].hasButton) ? theme[theme.current].blue : theme[theme.current].lightest;
+        this.buttons.at(-1).backcolor = (this.p.cooldown < 0 && loadout[modeout.l].hasButton) ? theme[theme.current].blue : theme[theme.current].lightest;
         //draw actual game stuff
         let temp = this.p.game.getGrid();
         let colorList = [theme[theme.current].blue,theme[theme.current].pink,theme[theme.current].green,theme[theme.current].orange];
@@ -60,7 +73,21 @@ class GameScreen{
                 this.p.pop();
             }
         }
-        //update
-        this.cooldown --;
+        //update 
+        this.p.cooldown --;
+        this.p.timer = Math.min(this.p.timer-SIXTIETH,5999);
+        if (this.p.timer < 0)
+            this.p.prvNxtScrns.push("Lost");
+        let winCon = (this.p.game.getEmptyCells().length == 0);
+        switch (modeout.l){
+            case ("fish"):
+                if (this.p.cooldown < -50)
+                    this.p.cooldown = Math.random()*540+60;
+            break;
+            case ("grind"):
+                if (winCon)
+                    this.p.timer += 6;
+            break;
+        }
     }
 }

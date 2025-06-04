@@ -36,6 +36,14 @@ class Game{
     }
     setMode(mode){
         this.mode = mode;
+        this.grid = [];
+        for (let x = 0; x < STARTING_GRIDSIZE; x++){
+            let temp = [];
+            for (let y = 0; y < STARTING_GRIDSIZE; y++)
+                temp.push(0);
+            this.grid.push(temp);
+        }
+        this.generatePuzzle();
     }
     gridSizeUp(){
         if (this.grid.length >= ABSOLUTE_MAX_SIZE)
@@ -51,16 +59,19 @@ class Game{
         //increases scoring too
         this.scorePerPuzzle *= 2 * this.scorePerPuzzle / 100;
     }
+    getPieces(){
+        return this.pieceTable;
+    }
     placePiece(pieceIndex,x,y){
         //check if piece can be placed at given x and y
         possible = true;
         for (let j = 0; j < pieces[pieceIndex].length; j++)
-            possible &= (this.grid[pieces[pieceIndex][j].x + x] && this.grid[pieces[pieceIndex][j].x + x][pieces[pieceIndex][j].y + y])
+            possible &= (this.grid[pieces[pieceIndex][j].x + x] && (this.grid[pieces[pieceIndex][j].x + x][pieces[pieceIndex][j].y + y] == 0))
         if (!possible)
             return false;
         //place it if possible
         for (let j = 0; j < pieces[pieceIndex].length; j++)
-            this.grid[pieces[pieceIndex][j].x + x][pieces[pieceIndex][j].y + y] = pieceIndex;
+            this.grid[pieces[pieceIndex][j].x + x][pieces[pieceIndex][j].y + y] = pieceIndex + 1;
         return true;
     }
     generatePuzzle(){
@@ -77,6 +88,7 @@ class Game{
             shuffle(pieces)
             for (let i = 0; i < pieces.length; i++){
                 for (let j = 0; j < imaginaryGrid.length; j++){
+                    //possibly add a check to see if all cells in a piece share the same x or y value 
                     //adds some varation to the piece size for more interesting puzzles
                     if (skipped < 10 && Math.random() < 0.5){
                         skipped ++;
@@ -122,7 +134,7 @@ class Game{
         for (let i = 0; i < pieces.length; i++){
             this.normalizePiece(pieces[i])
         }
-        return pieces;
+        this.pieceTable = pieces;
     }
     normalizePiece(piece){
         //translate pieces such that they are mostly dissociated from the solution
