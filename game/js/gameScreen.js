@@ -17,11 +17,13 @@ class GameScreen{
                     break;
                     case ("fish"):
                         this.p.cooldown = Math.random()*540+60;
+                        this.p.score.now += 80;
                     break;
                 }
             }}, "", "FFFFFF", theme[theme.current].blue, p.RIGHT, 27)
         ];
         this.p.game.generatePuzzle();
+        
     }
     draw(){
         this.p.noStroke();
@@ -45,7 +47,7 @@ class GameScreen{
         //draw score text
         this.p.textAlign(this.p.LEFT,this.p.CENTER);
         this.p.textSize(20);
-        this.p.text("Score:\n00000000",24,753,190,70);
+        this.p.text("Score:\n"+(""+this.p.score.now).padStart(8,"0"),24,753,190,70);
         this.p.pop();
         //draw container for puzzle and piece tray
         this.p.fill(hexToRgb(theme[theme.current].dark));
@@ -57,15 +59,15 @@ class GameScreen{
         this.buttons.at(-1).text = capitalizeFirst(modeout.l)+"\u2800";
         this.buttons.at(-1).backcolor = (this.p.cooldown < 0 && loadout[modeout.l].hasButton) ? theme[theme.current].blue : theme[theme.current].lightest;
         //draw actual game stuff
-        let temp = this.p.game.getGrid();
+        let currentGrid = this.p.game.getGrid();
         let colorList = [theme[theme.current].blue,theme[theme.current].pink,theme[theme.current].green,theme[theme.current].orange];
-        let cellSize = (345-6)/temp.length;
-        for (let x = 0; x < temp.length; x++){
-            for (let y = 0; y < temp.length; y++){
+        let cellSize = (345-6)/currentGrid.length;
+        for (let x = 0; x < currentGrid.length; x++){
+            for (let y = 0; y < currentGrid.length; y++){
                 this.p.push();
-                if (temp[x][y]){
+                if (currentGrid[x][y]){
                     this.p.dropShadow(4, 6);
-                    this.p.fill(hexToRgb(colorList[temp[x][y]%4]));
+                    this.p.fill(hexToRgb(colorList[currentGrid[x][y]%4]));
                 }else
                     this.p.fill(hexToRgb(theme[theme.current].darkest));
                 // 30 = 24 + 3 (spacing between each cell) + 3 (spacing bewtween boarder)
@@ -85,9 +87,18 @@ class GameScreen{
                     this.p.cooldown = Math.random()*540+60;
             break;
             case ("grind"):
-                if (winCon)
+                if (winCon){
                     this.p.timer += 6;
+                    this.p.score.now += this.p.gridSizeUp();
+                    this.p.score.now = this.p.score.now*0.95 + 10;
+                    return;
+                }
+            break;
+            case ("burnout"):
+                this.p.score.now *= 1.05;
             break;
         }
+        if (winCon)
+            this.p.gridSizeUp();
     }
 }

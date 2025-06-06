@@ -15,7 +15,7 @@ class Game{
     constructor(){
         this.mode = null;
         this.puzzlesSolved = 0;
-        this.scorePerPuzzle = 100;
+        this.scorePerPuzzle = 160;
         this.grid = [];
         this.pieceTable = [];
         for (let x = 0; x < STARTING_GRIDSIZE; x++){
@@ -46,7 +46,7 @@ class Game{
         this.generatePuzzle();
     }
     gridSizeUp(){
-        if (this.grid.length >= ABSOLUTE_MAX_SIZE)
+        if (this.mode != "static" || (this.puzzlesSolved % 2) || this.grid.length >= ABSOLUTE_MAX_SIZE)
             return;
         this.grid = [];
         for (let x = 0; x <= this.grid.length; x++){
@@ -57,7 +57,9 @@ class Game{
         }
         this.MAXITER = this.grid.length * this.grid.length;
         //increases scoring too
-        this.scorePerPuzzle *= 2 * this.scorePerPuzzle / 100;
+        this.scorePerPuzzle = 10 * this.MAXITER;
+        this.generatePuzzle();
+        return this.scorePerPuzzle;
     }
     getPieces(){
         return this.pieceTable;
@@ -129,7 +131,6 @@ class Game{
         let temp = pieces.at(-1).slice();
         temp.pop(); //theoretically makes a valid shape always but could do with some testing
         pieces.push(temp);
-        shuffle(pieces);
         //see method below
         for (let i = 0; i < pieces.length; i++){
             this.normalizePiece(pieces[i])

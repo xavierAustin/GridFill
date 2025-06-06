@@ -11,3 +11,17 @@ You can use your emmassed points at the shop to purchase themes or alternative w
 - Xavier Austin
 - Gabriel Groenwold
 - JC Zaragoza
+## Todo
+- implement gamescreen
+- implement "are you sure?" popups
+- implement shop screen
+- implement game over screen
+- implement landing page
+- implement tutorial screen
+- implement various loadouts:
+    - scry
+    - conjure
+    - slice
+    - focus
+    - void
+- potentially implement save and load system (for unlocks but also for play sessions)
