@@ -47,6 +47,9 @@ s = function(p){
         loadout[property].img = loadout[property].trueimg;
         loadout[property].description = loadout[property].truedes;
     }
+    p.reloadScreens = function(){
+        p.Screens = {Title: new Title(p), Settings: new Settings(p), ModeSelect: new ModeSelect(p), Shop: new Shop(p), Game: new GameScreen(p), Lost: new LossScreen(p)};
+    }
     p.setup = function(){
         p.createCanvas(393,852).parent("canvasContainer");
         //remove some caret browsing features (if we use space as an input it wont forcibly shoot the user to the bottom of the page)
@@ -67,7 +70,8 @@ s = function(p){
         }
         p.textFont(p.font);
         p.game = new Game();
-        p.Screens = {Title: new Title(p), Settings: new Settings(p), ModeSelect: new ModeSelect(p), Shop: new Shop(p), Game: new GameScreen(p)};
+        p.game.generatePuzzle();
+        p.reloadScreens();
         //I didn't really know what to call this
         //use .push to change the screen and then .pop to go back to a previous screen
         //popping more than ten times will go back to the title but who cares

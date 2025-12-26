@@ -22,8 +22,7 @@ class GameScreen{
                 }
             }}, "", "FFFFFF", theme[theme.current].blue, p.RIGHT, 27)
         ];
-        this.p.game.generatePuzzle();
-        
+        //this.p.game.generatePuzzle();
     }
     draw(){
         this.p.noStroke();
@@ -64,22 +63,28 @@ class GameScreen{
         let cellSize = (345-6)/currentGrid.length;
         for (let x = 0; x < currentGrid.length; x++){
             for (let y = 0; y < currentGrid.length; y++){
-                this.p.push();
-                if (currentGrid[x][y]){
-                    this.p.dropShadow(4, 6);
+                if (currentGrid[x][y])
                     this.p.fill(hexToRgb(colorList[currentGrid[x][y]%4]));
-                }else
+                else
                     this.p.fill(hexToRgb(theme[theme.current].darkest));
                 // 30 = 24 + 3 (spacing between each cell) + 3 (spacing bewtween boarder)
                 this.p.square(x*cellSize+30,y*cellSize+161,cellSize-6,10);
-                this.p.pop();
+                let cellBelow = (currentGrid[x][y+1] && currentGrid[x][y+1] == currentGrid[x][y]);
+                let cellRight = (currentGrid[x+1] && currentGrid[x+1][y] && currentGrid[x+1][y] == currentGrid[x][y]);
+                if (cellRight)
+                    this.p.square((x+0.5)*cellSize+30,y*cellSize+161,cellSize-6);
+                if (cellBelow)
+                    this.p.square(x*cellSize+30,(y+0.5)*cellSize+161,cellSize-6);
+                if (cellRight && cellBelow && currentGrid[x+1][y+1] && currentGrid[x+1][y+1] == currentGrid[x][y])
+                    this.p.square((x+0.5)*cellSize+30,(y+0.5)*cellSize+161,cellSize-6);
             }
         }
         //update 
         this.p.cooldown --;
         this.p.timer = Math.min(this.p.timer-SIXTIETH,5999);
-        if (this.p.timer < 0)
+        if (this.p.timer > 0)
             this.p.prvNxtScrns.push("Lost");
+        let customwincon = 0;
         let winCon = (this.p.game.getEmptyCells().length == 0);
         switch (modeout.l){
             case ("fish"):
@@ -87,6 +92,7 @@ class GameScreen{
                     this.p.cooldown = Math.random()*540+60;
             break;
             case ("grind"):
+                customwincon = 1;
                 if (winCon){
                     this.p.timer += 6;
                     this.p.score.now += this.p.gridSizeUp();
@@ -95,10 +101,14 @@ class GameScreen{
                 }
             break;
             case ("burnout"):
-                this.p.score.now *= 1.05;
+                customwincon = 1;
+                if (winCon){
+                    let temp = this.p.gridSizeUp();
+                    this.p.score.now += temp * temp / 2;
+                }
             break;
         }
-        if (winCon)
-            this.p.gridSizeUp();
+        if (winCon && !customwincon)
+            this.p.score.now += this.p.gridSizeUp();
     }
 }

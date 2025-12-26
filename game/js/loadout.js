@@ -6,16 +6,16 @@ let loadout = {
         trueimg: null,
         truedes: null //is just decription again
     },
-    grind: {
-        description: "When you solve a puzzle get 6 more seconds, but score fewer points.",
-        hasButton: 0,
+    roulette: {
+        description: "Tap to reroll the current puzzle; recharges every 7 seconds.",
+        hasButton: 1,
         img: null,
         trueimg: null,
         truedes: null
     },
-    roulette: {
-        description: "Tap to reroll the current puzzle; recharges every 7 seconds.",
-        hasButton: 1,
+    grind: {
+        description: "When you solve a puzzle get 6 more seconds, but score fewer points.",
+        hasButton: 0,
         img: null,
         trueimg: null,
         truedes: null
@@ -67,7 +67,8 @@ let loadout = {
 let mode = {
     evolution: "Finishing two puzzles increases the grid size by 1 row and 1 column.",
     static: "Grid remains a four-by-four. Score less than if you were playing evolution.",
-    zen: "Evolution but there's no time limit and your final score isn't saved."
+    zen: "Evolution but there's no time limit and your final score isn't saved.",
+    random: "Finishing two puzzles changes the grid size to a new random size."
 }
 
 let modeout = {

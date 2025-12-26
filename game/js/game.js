@@ -47,7 +47,7 @@ class Game{
     }
     gridSizeUp(){
         if (this.mode != "static" || (this.puzzlesSolved % 2) || this.grid.length >= ABSOLUTE_MAX_SIZE)
-            return;
+            return this.scorePerPuzzle;
         this.grid = [];
         for (let x = 0; x <= this.grid.length; x++){
             let temp = [];
@@ -67,18 +67,18 @@ class Game{
     placePiece(pieceIndex,x,y){
         //check if piece can be placed at given x and y
         possible = true;
-        for (let j = 0; j < pieces[pieceIndex].length; j++)
-            possible &= (this.grid[pieces[pieceIndex][j].x + x] && (this.grid[pieces[pieceIndex][j].x + x][pieces[pieceIndex][j].y + y] == 0))
+        for (let j = 0; j < this.pieceTable[pieceIndex].length; j++)
+            possible &= (this.grid[this.pieceTable[pieceIndex][j].x + x] && (this.grid[this.pieceTable[pieceIndex][j].x + x][this.pieceTable[pieceIndex][j].y + y] == 0))
         if (!possible)
             return false;
         //place it if possible
-        for (let j = 0; j < pieces[pieceIndex].length; j++)
-            this.grid[pieces[pieceIndex][j].x + x][pieces[pieceIndex][j].y + y] = pieceIndex + 1;
+        for (let j = 0; j < this.pieceTable[pieceIndex].length; j++)
+            this.grid[this.pieceTable[pieceIndex][j].x + x][this.pieceTable[pieceIndex][j].y + y] = pieceIndex + 1;
         return true;
     }
     generatePuzzle(){
         this.clearGrid();
-        let numOfPieces = Math.floor((Math.random() * 0.6 + 1.3) * this.grid.length);
+        let numOfPieces = Math.floor((Math.random() * 0.6 + 1.1) * this.grid.length);
         let imaginaryGrid = shuffle(this.getEmptyCells());
         let pieces = [];
         let skipped = 0;
@@ -126,7 +126,7 @@ class Game{
         for (let i = 0; i < pieces.length; i++)
             for (let j = 0; j < pieces[i].length; j++)
                 this.grid[pieces[i][j].x][pieces[i][j].y] = i;
-        console.log(this.grid);
+        //console.log(this.grid);
         //make trick piece
         let temp = pieces.at(-1).slice();
         temp.pop(); //theoretically makes a valid shape always but could do with some testing
@@ -135,7 +135,7 @@ class Game{
         for (let i = 0; i < pieces.length; i++){
             this.normalizePiece(pieces[i])
         }
-        this.pieceTable = pieces;
+        this.pieceTable = shuffle(pieces);
     }
     normalizePiece(piece){
         //translate pieces such that they are mostly dissociated from the solution

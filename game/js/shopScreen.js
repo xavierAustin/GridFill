@@ -28,3 +28,5 @@ class Shop{
         //todo: everything ;>_>
     }
 }
+
+let itemsForPurchase = [];

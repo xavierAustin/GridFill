@@ -56,10 +56,11 @@ class ModeSelect{
         this.p.pop();
         //draw evolution/static icons
         this.p.push();
-        this.p.dropShadow(4, 6);
-        this.p.fill(hexToRgb("FFFFFF"));
+        this.p.fill(hexToRgb(theme[theme.current].dark));
         this.p.square(24,156,128,10);
         this.p.square(241,156,128,10);
+        this.p.fill(hexToRgb("FFFFFF"));
+        this.p.dropShadow(4, 6);
         this.p.image(this.p.arrowIcon,161.5,185,70,70);
         //draw loadout images
         this.p.image(loadout[modeout.l].img,151.5,523,90,90);
@@ -75,6 +76,37 @@ class ModeSelect{
         this.p.textSize(11);
         this.p.text(loadout[modeout.l].description,111,645,171,114);
         this.p.pop();
+        //draw evolution/static icons cont.
+        if (modeout.m == "static"){
+            this.p.fill(hexToRgb(theme[theme.current].blue));
+            this.p.rect(30,162,116,36,5);
+            this.p.rect(70,162,36,76,5);
+            this.p.fill(hexToRgb(theme[theme.current].orange));
+            this.p.rect(30,202,36,76,5);
+            this.p.rect(30,242,76,36,5);
+            this.p.fill(hexToRgb(theme[theme.current].green));
+            this.p.rect(110,202,36,76,5);
+            //+217
+            this.p.fill(hexToRgb(theme[theme.current].blue));
+            this.p.rect(247,162,36,76,5);
+            this.p.rect(287,202,36,76,5);
+            this.p.rect(247,202,76,36,5);
+            this.p.fill(hexToRgb(theme[theme.current].pink));
+            this.p.rect(327,162,36,116,5);
+            this.p.rect(287,162,76,36,5);
+            this.p.fill(hexToRgb(theme[theme.current].green));
+            this.p.square(247,242,36,5);
+        }else{
+            this.p.fill(hexToRgb(theme[theme.current].green));
+            this.p.rect(70,162,76,36,5);
+            this.p.rect(70,242,76,36,5);
+            this.p.rect(110,162,36,116,5);
+            this.p.fill(hexToRgb(theme[theme.current].orange));
+            this.p.rect(30,162,36,76,5);
+            this.p.rect(30,202,76,36,5);
+            this.p.fill(hexToRgb(theme[theme.current].pink));
+            this.p.square(30,242,36,5);
+        }
         //change go button color if selected loadout is locked
         if (loadout[modeout.l].description != loadout[modeout.l].truedes)
             this.buttons[0].deactivate();
