@@ -8,6 +8,7 @@ class ButtonSkeleton{
         for (let i = 0; i < keys.length; i++)
             if (passedFuncs[keys[i]] != undefined)
                 funcs[keys[i]] = passedFuncs[keys[i]];
+        let defaults = {};
         //init
         this.p = p;
         this.x = x;
@@ -57,7 +58,7 @@ class ButtonSkeleton{
         }else{
             this.p.fill(hexToRgb(theme[theme.current].light));
             this.p.rect(this.x,this.y,this.w,this.h,10);
-            this.p.fill(hexToRgb("00000064",1));
+            this.p.fill(hexToRgb("00000064"));
             this.p.rect(this.x,this.y,this.w,this.h,10);
             let temp = hexToRgb(theme[theme.current].light)
             temp[3] = 0x18;

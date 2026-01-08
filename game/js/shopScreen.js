@@ -29,4 +29,4 @@ class Shop{
     }
 }
 
-let itemsForPurchase = [];
+let itemsForPurchase = [{cost:0}];

@@ -64,7 +64,7 @@ class Settings{
         this.p.dropShadow(4, 6);
         this.p.rect(104,183,186,70,10);
         this.p.dropShadow(4, 4);
-        this.p.textSize(30);
+        this.p.textSize(35);
         this.p.fill(hexToRgb("FFFFFF"));
         this.p.text(capitalizeFirst(theme.current),104,178,186,70);
         this.p.pop();

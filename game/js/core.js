@@ -1,14 +1,19 @@
-function hexToRgb(hex, hasAlpha = false) {
-    if (typeof hex === 'string')
-        hex = parseInt(hex.slice(hasAlpha? -8 : -6), 16);
+function hexToRgb(hex){
+    var str = "" + hex;
+    var hasAlpha = str.match(/[A-Fa-f0-9]{8}$/g);
+    var noAlpha = str.match(/[A-Fa-f0-9]{6}$/g);
 
-    var color = hex;
-    var offset = hasAlpha? 8 : 0;
+    if (hasAlpha)
+        str = hasAlpha[0];
+    else if (noAlpha)
+        str = noAlpha[0]+"FF";
+    else
+        throw new Error("Passed hex value, \"" + hex + "\" is malformed.");
 
-    var r = (color >> (16+offset)) & 255;
-    var g = (color >> (8+offset)) & 255;
-    var b = (color >> (offset)) & 255;
-    var a = (hasAlpha? color : 255) & 255;
+    let r = parseInt(str.slice(0,2), 16);
+    let g = parseInt(str.slice(2,4), 16);
+    let b = parseInt(str.slice(4,6), 16);
+    let a = parseInt(str.slice(6,8), 16);
 
     return [r,g,b,a];
 }
